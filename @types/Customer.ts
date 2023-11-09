@@ -9,6 +9,7 @@ export namespace CUSTOMER {
         password: string;
         phoneNumber: string;
         gender: string;
+        role: number[];
       
     }
     export interface Role {

@@ -108,6 +108,10 @@ const updatebarber= async (payload:BARBER.updateBarber) => {
         barber.phoneNumber = payload.phoneNumber|| barber.phoneNumber;
         barber.email = payload.email|| barber.email;
         barber.password = payload.password|| barber.password;
+        let time = new Date().getTime();
+        let date = new Date(time);
+        barber.passwordChangedAt = date||barber.passwordChangedAt;
+        barber.logoutAt = date||barber.logoutAt;
 
         console.log(barber)
         const result = await Barber.save(barber);

@@ -76,6 +76,7 @@ const updatesalon= async (payload:SALON.updateSalon) => {
 };
 }
 
+
 export {
   insertSalon,
   getsalon,
