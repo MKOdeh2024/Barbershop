@@ -1,5 +1,5 @@
-export namespace BARBER {
-    export interface createBarber {
+export namespace CUSTOMER {
+    export interface createCustomer {
 
         id: number;
         firstName: string;
@@ -9,7 +9,6 @@ export namespace BARBER {
         password: string;
         phoneNumber: string;
         gender: string;
-        role : number[];
       
     }
     export interface Role {
@@ -41,14 +40,14 @@ export namespace BARBER {
       roleId:number;
       permission:string;
     }
-    export interface updateBarber{
+    export interface updateCustomer{
       id:number;
-      firstName: string;
-      midName: string;
-      lastName: string;
-      email: string;
-      password: string;
-      phoneNumber: string;
+      firstName?: string;
+      midName?: string;
+      lastName?: string;
+      email?: string;
+      password?: string;
+      phoneNumber?: string;
     
     }
   

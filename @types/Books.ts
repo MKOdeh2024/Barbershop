@@ -2,7 +2,7 @@ export namespace BOOK {
     export interface createBook {
  
       id: number;
-      city: string;
+      salon: string;
       street: string;
       Date: Date;
       time: Date;
@@ -12,8 +12,7 @@ export namespace BOOK {
     
     export interface updateBook{
         id: number;
-        city: string;
-        street: string;
+        salon:string;
         Date: Date;
         time: Date;
     

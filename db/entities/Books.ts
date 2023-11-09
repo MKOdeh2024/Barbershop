@@ -11,7 +11,7 @@ export class Book extends BaseEntity {
   
 
   @Column({ nullable: false ,type:'text'})
-  city: string;
+  salon: string;
 
   @Column({ nullable: false,type:'text'})
   street: string;
