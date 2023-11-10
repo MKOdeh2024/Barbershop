@@ -9,7 +9,6 @@ export class Book extends BaseEntity {
   id: number;
 
   
-
   @Column({ nullable: false ,type:'text'})
   salon: string;
 

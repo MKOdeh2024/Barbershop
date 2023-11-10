@@ -21,7 +21,7 @@ export class Salon extends BaseEntity {
   @Column({ nullable: false,type:'text'})
   street: string;
 
-  @Column('timestamp')
+  @Column({type: 'timestamp'})
   startWorkTime: Date;
 
   @Column('timestamp')
