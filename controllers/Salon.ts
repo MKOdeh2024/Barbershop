@@ -23,18 +23,18 @@ const insertSalon = async (payload: SALON.Item) => {
   }
 }
 
-const getsalon = async (id: number) => {
+const getSalon = async (id: number) => {
   return await Salon.findOneBy({
     id
   });
 }
 
-const getsalons = async () => {
+const getSalons = async () => {
   return await Salon.findAndCount();
 }
 
 
-const deletesalon = async (salonId:number) => {
+const deleteSalon = async (salonId:number) => {
   try {
     const salon =await Salon.delete({id:salonId});
     if(salon){
@@ -48,7 +48,7 @@ const deletesalon = async (salonId:number) => {
 };
 }
 
-const updatesalon= async (payload:SALON.updateSalon) => {
+const updateSalon= async (payload:SALON.updateSalon) => {
   try {
     const salon = await Salon.findOneBy({id:payload.id});
     console.log(salon)
@@ -79,8 +79,8 @@ const updatesalon= async (payload:SALON.updateSalon) => {
 
 export {
   insertSalon,
-  getsalon,
-  getsalons,
-  updatesalon,
-  deletesalon,
+  getSalon,
+  getSalons,
+  updateSalon,
+  deleteSalon,
 }

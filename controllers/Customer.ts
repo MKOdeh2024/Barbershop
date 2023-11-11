@@ -28,13 +28,13 @@ const signUp = async (payload: CUSTOMER.createCustomer) => {
   }
 }
 
-const getcustomer = async (id: number) => {
+const getCustomer = async (id: number) => {
   return await Customer.findOneBy({
     id
   });
 }
 
-const getcustomers = async () => {
+const getCustomers = async () => {
   return await Customer.findAndCount();
 }
 
@@ -62,7 +62,7 @@ const login = async (email: string, password: string) => {
 
 }
 
-const deletecustomer = async (customerId:number) => {
+const deleteCustomer = async (customerId:number) => {
   try {
     const customer =await Customer.delete({id:customerId});
     if(customer){
@@ -76,7 +76,7 @@ const deletecustomer = async (customerId:number) => {
 };
 }
 
-const updatecustomer= async (payload:CUSTOMER.updateCustomer) => {
+const updateCustomer= async (payload:CUSTOMER.updateCustomer) => {
   try {
     const customer = await Customer.findOneBy({id:payload.id});
     console.log(customer)
@@ -107,9 +107,9 @@ const updatecustomer= async (payload:CUSTOMER.updateCustomer) => {
 
 export {
   signUp,
-  getcustomer,
-  getcustomers,
-  updatecustomer,
-  deletecustomer,
+  getCustomer,
+  getCustomers,
+  updateCustomer,
+  deleteCustomer,
   login
 }

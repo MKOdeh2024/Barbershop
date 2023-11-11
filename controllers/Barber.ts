@@ -36,13 +36,13 @@ const signUp = async (payload: BARBER.createBarber) => {
   }
 }
 
-const getbarber = async (id: number) => {
+const getBarber = async (id: number) => {
   return await Barber.findOneBy({
     id
   });
 }
 
-const getbarbers = async () => {
+const getBarbers = async () => {
   return await Barber.findAndCount();
 }
 
@@ -83,7 +83,7 @@ const login = async (email: string, password: string) => {
 
 }
 
-const deletebarber = async (barberId:number) => {
+const deleteBarber = async (barberId:number) => {
   try {
     const barber =await Barber.delete({id:barberId});
     if(barber){
@@ -97,7 +97,7 @@ const deletebarber = async (barberId:number) => {
 };
 }
 
-const updatebarber= async (payload:BARBER.updateBarber) => {
+const updateBarber= async (payload:BARBER.updateBarber) => {
   try {
     const barber = await Barber.findOneBy({id:payload.id});
     console.log(barber)
@@ -137,10 +137,10 @@ const updatebarber= async (payload:BARBER.updateBarber) => {
 
 export {
   signUp,
-  getbarber,
+  getBarber,
   getPersonalInformation,
-  getbarbers,
-  updatebarber,
-  deletebarber,
+  getBarbers,
+  updateBarber,
+  deleteBarber,
   login
 }

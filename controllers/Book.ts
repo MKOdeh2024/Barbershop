@@ -21,12 +21,12 @@ const insertBook = async (customerId:number,payload: BOOK.createBook) => {
   }
 }
 
-const getbooks = async (bookId:number) => {
+const getBooks = async (bookId:number) => {
     return await Book.findAndCount();
 
 };
 
-const getbook = async (bookId:number) => {
+const getBook = async (bookId:number) => {
     try { 
       const book =await Book.findOneBy({id:bookId});
       if(book){
@@ -39,7 +39,7 @@ const getbook = async (bookId:number) => {
     }
 };
 
-const deletebook = async (bookId:number) => {
+const deleteBook = async (bookId:number) => {
     try {
       const book =await Book.delete({id:bookId});
       if(book.affected !=0){
@@ -53,7 +53,7 @@ const deletebook = async (bookId:number) => {
   };
 }
 
-const updatebook= async (payload:BOOK.updateBook) => {
+const updateBook= async (payload:BOOK.updateBook) => {
 
     const bookId = payload.id;
     try {
@@ -81,8 +81,8 @@ const updatebook= async (payload:BOOK.updateBook) => {
 
 export {
     insertBook,
-    getbook,
-    getbooks,
-    deletebook,
-    updatebook
+    getBook,
+    getBooks,
+    deleteBook,
+    updateBook
   }
