@@ -2,10 +2,10 @@
     "name": "barbershop",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "./dist/app.js",
     "scripts": {
         "test": "jest",
-        "build": "tsc",
+        "build": "tsc -w",
         "run-watch": "nodemon ./dist/app.js",
         "dev": "concurrently \"npm:build-tsc\"  \"npm:run-watch\""
     },

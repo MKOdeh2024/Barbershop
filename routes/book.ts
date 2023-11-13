@@ -2,13 +2,15 @@ import express from 'express';
 import { deleteBook, getBook, getBooks, insertBook, updateBook } from '../controllers/Book.js';
 import { Book } from '../db/entities/Books.js';
 import { createBookValidator, deleteBookValidator, getBookValidator, updateBookValidator } from '../middlewares/validation/book.js';
+import { Barber } from '../db/entities/Barber.js';
+import { Customer } from '../db/entities/Customer.js';
 
 
 
-var router = express.Router();
+var booksRouter = express.Router();
 
 // Route for creating a new Book request
-router.post('/', createBookValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
+booksRouter.post('/', createBookValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
   insertBook(res.locals.employee.id, req.body).then((data) => {
     res.status(201).send(data);
   }).catch(err => {
@@ -18,7 +20,7 @@ router.post('/', createBookValidator, (req: express.Request, res: express.Respon
 });
 
 // Route for retrieving a specific Book request
-router.get('/Book', getBookValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
+booksRouter.get('/Book', getBookValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
   getBook(req.body.id).then((data) => {
     if (data === 1) {
       res.send("Book not found!");
@@ -35,7 +37,7 @@ router.get('/Book', getBookValidator, (req: express.Request, res: express.Respon
 });
 
 // Route for retrieving all Book requests
-router.get('/Books', (req, res, next) => {
+booksRouter.get('/Books', (req, res, next) => {
   getBooks(res.locals.employee.id).then((data) => {
     if (data === null) {
       res.send("there is no Books requests for you");
@@ -51,7 +53,7 @@ router.get('/Books', (req, res, next) => {
 });
 
 // Route for deleting a Book request
-router.delete('/', deleteBookValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
+booksRouter.delete('/', deleteBookValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
   deleteBook(req.body.id).then((data) => {
     if (data === 1) {
       res.send("Book not found");
@@ -65,9 +67,9 @@ router.delete('/', deleteBookValidator, (req: express.Request, res: express.Resp
 });
 
 // Route for updating a Book request
-router.put('/', updateBookValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  const vac = await Book.findOneBy({ id: req.body.id });
-  if (vac) {
+booksRouter.put('/', updateBookValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  const book = await Book.findOneBy({ id: req.body.id });
+  if (book) {
     updateBook(req.body.id).then((data) => {
       if (data === 2) {
         res.send("something went wrong, when saving the Book request");
@@ -88,6 +90,22 @@ router.put('/', updateBookValidator, async (req: express.Request, res: express.R
 });
 
 
+// granting a book to another user
+booksRouter.post('/grant', updateBookValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  const senderCustomer = await Customer.findOneBy({ id: req.body.id });
+  const bookId = await Book.findOneBy({ id: req.body.bookid });
+  if (senderCustomer && bookId) {
+      let desicion = prompt(`The user with id ${senderCustomer} wants your book with id ${bookId} : yes/no `);
+      if(desicion === "yes"){
+        senderCustomer.books.push(bookId);
+        res.status(200).send("done");
+      }
+      else
+      res.send("Your request was rejected");    
+  } else {
+    res.send("Wrong request");
+  }
+});
 
 
-  export default router;
+  export default booksRouter;

@@ -57,7 +57,7 @@ gender: string
 
   @OneToOne(() => Book)
   @JoinColumn()
-  book : Book[];
+  books : Book[];
 
 
   @CreateDateColumn({

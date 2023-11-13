@@ -7,10 +7,10 @@ import { Salon } from '../db/entities/Salon.js';
 import { Customer } from '../db/entities/Customer.js';
 import {createCustomerValidator,updateCustomerValidator, deleteCustomerValidator, getCustomerValidator} from '../middlewares/validation/customer.js'
 
-var router = express.Router();
+var customerRouter = express.Router();
 
 // Route for creating an Customer
-router.post('/', createCustomerValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+customerRouter.post('/', createCustomerValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     signUp(req.body).then((data) => {
       res.send(data);
     }).catch(err => {
@@ -21,7 +21,7 @@ router.post('/', createCustomerValidator, async (req: express.Request, res: expr
 });
 
 // Route for retrieving a specific Customer
-router.get('/Customer', getCustomerValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
+customerRouter.get('/Customer', getCustomerValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
   getCustomer(req.body.id).then((data: any) => {
     res.send(data);
   }).catch(err => {
@@ -31,7 +31,7 @@ router.get('/Customer', getCustomerValidator, (req: express.Request, res: expres
 });
 
 // Route for retrieving all Customers
-router.get('/Customers', (req, res, next) => {
+customerRouter.get('/Customers', (req, res, next) => {
   getCustomers().then((data) => {
     res.send(data);
   }).catch(err => {
@@ -41,7 +41,7 @@ router.get('/Customers', (req, res, next) => {
 });
 
 // Route for Customer login
-router.post('/login', (req, res) => {
+customerRouter.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   console.log(email, password);
@@ -57,7 +57,7 @@ router.post('/login', (req, res) => {
 
 
 // Route for deleting an Customer
-router.delete('/', deleteCustomerValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
+customerRouter.delete('/', deleteCustomerValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
   deleteCustomer(req.body.id).then((data) => {
     if (data === 1) {
       res.send("Customer not found");
@@ -71,7 +71,7 @@ router.delete('/', deleteCustomerValidator, (req: express.Request, res: express.
 });
 
 // Route for updating Customer information
-router.put('/', updateCustomerValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+customerRouter.put('/', updateCustomerValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const emp = await Customer.findOneBy({ id: req.body.id });
   if (emp) {
     updateCustomer(req.body).then((data) => {
@@ -88,6 +88,6 @@ router.put('/', updateCustomerValidator, async (req: express.Request, res: expre
 
 
 
-export default router;
+export default customerRouter;
 
 

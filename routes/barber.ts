@@ -7,10 +7,10 @@ import { Salon } from '../db/entities/Salon.js';
 import { Barber } from '../db/entities/Barber.js';
 import {createBarberValidator,updateBarberValidator, deleteBarberValidator, getBarberValidator} from '../middlewares/validation/barber.js'
 
-var router = express.Router();
+var barberRouter = express.Router();
 
 // Route for creating an Barber
-router.post('/', createBarberValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+barberRouter.post('/', createBarberValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const salon = await Salon.findOneBy({ id: req.body.id });
   if (salon) {
     signUp(req.body).then((data) => {
@@ -25,7 +25,7 @@ router.post('/', createBarberValidator, async (req: express.Request, res: expres
 });
 
 // Route for retrieving a specific Barber
-router.get('/Barber', getBarberValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
+barberRouter.get('/Barber', getBarberValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
   getBarber(req.body.id).then((data: any) => {
     res.send(data);
   }).catch(err => {
@@ -35,7 +35,7 @@ router.get('/Barber', getBarberValidator, (req: express.Request, res: express.Re
 });
 
 // Route for retrieving all Barbers
-router.get('/Barbers', (req, res, next) => {
+barberRouter.get('/Barbers', (req, res, next) => {
   getBarbers().then((data) => {
     res.send(data);
   }).catch(err => {
@@ -45,7 +45,7 @@ router.get('/Barbers', (req, res, next) => {
 });
 
 // Route for Barber login
-router.post('/login', (req, res) => {
+barberRouter.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   console.log(email, password);
@@ -59,7 +59,7 @@ router.post('/login', (req, res) => {
 });
 
 // Route for retrieving personal information of the logged-in Barber
-router.get('/personalInfo', (req, res, next) => {
+barberRouter.get('/personalInfo', (req, res, next) => {
   getPersonalInformation(res.locals.Barber.id).then((Info) => {
     if (Info) {
       res.status(200).json({ Information: Info });
@@ -72,7 +72,7 @@ router.get('/personalInfo', (req, res, next) => {
 });
 
 // Route for deleting an Barber
-router.delete('/', deleteBarberValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
+barberRouter.delete('/', deleteBarberValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
   deleteBarber(req.body.id).then((data) => {
     if (data === 1) {
       res.send("Barber not found");
@@ -86,7 +86,7 @@ router.delete('/', deleteBarberValidator, (req: express.Request, res: express.Re
 });
 
 // Route for updating Barber information
-router.put('/', updateBarberValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+barberRouter.put('/', updateBarberValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const emp = await Barber.findOneBy({ id: req.body.id });
   if (emp) {
     updateBarber(req.body).then((data) => {
@@ -103,6 +103,6 @@ router.put('/', updateBarberValidator, async (req: express.Request, res: express
 
 
 
-export default router;
+export default barberRouter;
 
 

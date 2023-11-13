@@ -5,10 +5,10 @@ import { deleteSalon, getSalon, getSalons, insertSalon, updateSalon } from '../c
 import { createSalonValidator, deleteSalonValidator, getSalonValidator, updateSalonValidator } from '../middlewares/validation/salon.js';
 import { Salon } from '../db/entities/Salon.js';
 
-var router = express.Router();
+var salonsRouter = express.Router();
 
 // Route for creating a new Salon
-router.post('/', createSalonValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+salonsRouter.post('/', createSalonValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   insertSalon(req.body).then((data) => {
     res.send(data);
   }).catch(err => {
@@ -18,7 +18,7 @@ router.post('/', createSalonValidator, async (req: express.Request, res: express
 });
 
 // Route for retrieving a specific Salon
-router.get('/Salon', getSalonValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
+salonsRouter.get('/Salon', getSalonValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
 getSalon(req.body.name).then((data) => {
   if (data === null) {
     res.send("Salon not found!");
@@ -35,7 +35,7 @@ getSalon(req.body.name).then((data) => {
 });
 
 // Route for retrieving all Salons
-router.get('/Salons', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+salonsRouter.get('/Salons', (req: express.Request, res: express.Response, next: express.NextFunction) => {
 getSalons().then((data) => {
   if (data === null) {
     res.send("there is no Salon");
@@ -51,7 +51,7 @@ getSalons().then((data) => {
 });
 
 // Route for deleting a Salon
-router.delete('/', deleteSalonValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
+salonsRouter.delete('/', deleteSalonValidator, (req: express.Request, res: express.Response, next: express.NextFunction) => {
 deleteSalon(req.body.id).then((data) => {
    if (data === undefined) {
     res.send("Salon not found");
@@ -65,7 +65,7 @@ deleteSalon(req.body.id).then((data) => {
 });
 
 // Route for updating a Salon
-router.put('/', updateSalonValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+salonsRouter.put('/', updateSalonValidator, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 updateSalon(req.body).then((data) => {
   if (data === 2) {
     res.send("something went wrong, when updating Salon");
@@ -89,4 +89,4 @@ updateSalon(req.body).then((data) => {
 
 
 
-export default router;
+export default salonsRouter;
